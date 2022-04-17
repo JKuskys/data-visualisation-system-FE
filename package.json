@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build-prod": "ng build --configuration production && mv dist/j-kuskys-web-app _static",
+    "build-prod": "ng build --configuration production",
     "watch": "jest --watch",
     "test": "jest",
     "lint": "ng lint",

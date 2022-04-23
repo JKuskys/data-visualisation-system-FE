@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { IUser } from '../authentication/models';
+import { IUser } from '../models';
 
 export const updateUsername = createAction(
   '[Private widgets] Update username',

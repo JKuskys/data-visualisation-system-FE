@@ -5,7 +5,7 @@ import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { Api } from 'src/app/shared/models/api.enum';
-import { IUser } from '../authentication/models';
+import { IUser } from '../models';
 
 import * as AuthenticationActions from './authentication.actions';
 
@@ -29,7 +29,7 @@ export class AuthenticationEffects {
 
   private authenticateUser(user: IUser): Observable<Action> {
     return this.http
-      .post<{ access_token: string }>(`${Api.default}/login`, user)
+      .post<{ access_token: string }>(`${Api.default}/auth/login`, user)
       .pipe(
         map(({ access_token }) =>
           AuthenticationActions.authenticateUserSuccess({
@@ -41,7 +41,7 @@ export class AuthenticationEffects {
   }
 
   private createUser(user: IUser): Observable<Action> {
-    return this.http.post(`${Api.default}/signup`, user).pipe(
+    return this.http.post(`${Api.default}/auth/signup`, user).pipe(
       map(() => AuthenticationActions.createUserSuccess()),
       catchError(() => of(AuthenticationActions.createUserError()))
     );

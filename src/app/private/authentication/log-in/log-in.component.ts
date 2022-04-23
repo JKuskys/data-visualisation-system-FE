@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IUser } from '../models';
 
@@ -8,6 +8,8 @@ import { IUser } from '../models';
   styleUrls: ['./log-in.component.scss'],
 })
 export class LogInComponent {
+  @Input() isLoading: boolean | null | undefined;
+  @Input() username: string | null | undefined;
   @Output() toggleView = new EventEmitter<boolean>();
   @Output() logIn = new EventEmitter<IUser>();
 
@@ -23,7 +25,7 @@ export class LogInComponent {
 
   private createLogInForm(): FormGroup {
     const controls: Record<keyof IUser, FormControl> = {
-      username: new FormControl(null, Validators.required),
+      username: new FormControl(this.username, Validators.required),
       password: new FormControl(null, Validators.required),
       repeatPassword: new FormControl(null),
     };

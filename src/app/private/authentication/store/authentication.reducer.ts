@@ -20,6 +20,7 @@ const authenticationReducer = createReducer(
     ...state,
     isLoading: true,
     username: user.username,
+    accessToken: ''
   })),
   on(AuthenticationActions.createUserSuccess, (state) => ({
     ...state,
@@ -33,6 +34,7 @@ const authenticationReducer = createReducer(
     ...state,
     isLoading: true,
     username: user.username,
+    accessToken: ''
   })),
   on(AuthenticationActions.authenticateUserSuccess, (state, { accessToken }) => ({
     ...state,

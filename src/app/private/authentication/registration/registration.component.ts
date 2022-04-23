@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { matchValidator } from 'src/app/shared/validators/match.validator';
 import { IUser } from '../models';
@@ -9,6 +9,7 @@ import { IUser } from '../models';
   styleUrls: ['./registration.component.scss'],
 })
 export class RegistrationComponent {
+  @Input() isLoading: boolean | null | undefined;
   @Output() toggleView = new EventEmitter<boolean>();
   @Output() register = new EventEmitter<IUser>();
 
@@ -19,9 +20,8 @@ export class RegistrationComponent {
   }
 
   get repeatPasswordNoMatch(): boolean {
-    console.log(this.registrationForm)
     return !!this.registrationForm.errors?.mustMatch;
-  } 
+  }
 
   onSubmit(): void {
     this.register.emit(this.registrationForm.getRawValue());

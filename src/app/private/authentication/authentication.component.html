@@ -1,0 +1,9 @@
+<div class="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-md w-full space-y-8">
+        <img class="mx-auto h-12 w-auto" src="../../../assets/logos/vilnius-tech.png" alt="Workflow">
+        <app-log-in *ngIf="isLoggingIn; else registerRef" (toggleView)="isLoggingIn = $event" (logIn)="onLogIn($event)"></app-log-in>
+        <ng-template #registerRef>
+            <app-registration (toggleView)="isLoggingIn = $event" (register)="onRegister($event)"></app-registration>
+        </ng-template>
+    </div>
+</div>

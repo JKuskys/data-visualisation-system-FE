@@ -11,7 +11,7 @@
         </div>
         <div>
         <label for="passwordRepeat" class="sr-only">Pakartoti slaptažodį</label>
-        <input [formControl]="controls.repeatPassword" [class]="repeatPasswordNoMatch? 'border-red-500 border':'border border-gray-300'" id="passwordRepeat" name="passwordRepeat" type="password" autocomplete="current-password" required class="appearance-none rounded-none relative block w-full px-3 py-2 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Pakartoti slaptažodį">
+        <input [formControl]="controls.repeatPassword" [class]="repeatPasswordNoMatch? 'border-red-500':'border-gray-300'" style="border-width: 1px" id="passwordRepeat" name="passwordRepeat" type="password" autocomplete="current-password" required class="appearance-none rounded-none relative block w-full px-3 py-2 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Pakartoti slaptažodį">
         </div>
     </div>
 

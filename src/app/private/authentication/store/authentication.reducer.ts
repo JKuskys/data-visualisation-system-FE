@@ -16,11 +16,12 @@ export const initialState: State = {
 
 const authenticationReducer = createReducer(
   initialState,
+  on(AuthenticationActions.logOut, () => initialState),
   on(AuthenticationActions.createUser, (state, { user }) => ({
     ...state,
     isLoading: true,
     username: user.username,
-    accessToken: ''
+    accessToken: '',
   })),
   on(AuthenticationActions.createUserSuccess, (state) => ({
     ...state,
@@ -34,22 +35,22 @@ const authenticationReducer = createReducer(
     ...state,
     isLoading: true,
     username: user.username,
-    accessToken: ''
+    accessToken: '',
   })),
-  on(AuthenticationActions.authenticateUserSuccess, (state, { accessToken }) => ({
-    ...state,
-    isLoading: false,
-    accessToken,
-  })),
+  on(
+    AuthenticationActions.authenticateUserSuccess,
+    (state, { accessToken }) => ({
+      ...state,
+      isLoading: false,
+      accessToken,
+    })
+  ),
   on(AuthenticationActions.authenticateUserError, (state) => ({
     ...state,
     isLoading: false,
   }))
 );
 
-export function reducer(
-  state: State,
-  action: Action
-): State {
+export function reducer(state: State, action: Action): State {
   return authenticationReducer(state, action);
 }

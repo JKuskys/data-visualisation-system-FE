@@ -13,7 +13,7 @@ export class RegistrationComponent {
   @Output() toggleView = new EventEmitter<boolean>();
   @Output() register = new EventEmitter<IUser>();
 
-  registrationForm = this.createLogInForm();
+  registrationForm = this.createRegistrationForm();
 
   get controls(): Record<keyof IUser, FormControl> {
     return this.registrationForm.controls as Record<keyof IUser, FormControl>;
@@ -27,7 +27,7 @@ export class RegistrationComponent {
     this.register.emit(this.registrationForm.getRawValue());
   }
 
-  private createLogInForm(): FormGroup {
+  private createRegistrationForm(): FormGroup {
     const controls: Record<keyof IUser, FormControl> = {
       username: new FormControl(null, Validators.required),
       password: new FormControl(null, Validators.required),

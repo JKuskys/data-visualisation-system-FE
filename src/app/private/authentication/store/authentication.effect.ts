@@ -6,6 +6,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { Api } from 'src/app/shared/models/api.enum';
 import { IUser } from '../models';
+import { ToastrService } from 'ngx-toastr';
 
 import * as AuthenticationActions from './authentication.actions';
 
@@ -25,25 +26,39 @@ export class AuthenticationEffects {
     )
   );
 
-  constructor(private actions$: Actions, private http: HttpClient) {}
+  constructor(
+    private actions$: Actions,
+    private http: HttpClient,
+    private toastr: ToastrService
+  ) {}
 
   private authenticateUser(user: IUser): Observable<Action> {
     return this.http
       .post<{ access_token: string }>(`${Api.default}/auth/login`, user)
       .pipe(
-        map(({ access_token }) =>
-          AuthenticationActions.authenticateUserSuccess({
+        map(({ access_token }) => {
+          this.toastr.success('Prisijungimas sekmingas');
+          return AuthenticationActions.authenticateUserSuccess({
             accessToken: access_token,
-          })
-        ),
-        catchError(() => of(AuthenticationActions.authenticateUserError()))
+          });
+        }),
+        catchError(() => {
+          this.toastr.error('Neteisingi prisijungimo duomenys');
+          return of(AuthenticationActions.authenticateUserError());
+        })
       );
   }
 
   private createUser(user: IUser): Observable<Action> {
     return this.http.post(`${Api.default}/auth/signup`, user).pipe(
-      map(() => AuthenticationActions.createUserSuccess()),
-      catchError(() => of(AuthenticationActions.createUserError()))
+      map(() => {
+        this.toastr.success('Registracija sekmingas');
+        return AuthenticationActions.createUserSuccess();
+      }),
+      catchError(() => {
+        this.toastr.error('Registracija nepavyko');
+        return of(AuthenticationActions.createUserError());
+      })
     );
   }
 }

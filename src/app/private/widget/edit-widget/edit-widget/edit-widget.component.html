@@ -1,0 +1,104 @@
+<form class="d-flex flex-column justify-content-between flex-grow-1" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="px-4 bg-white space-y-6 sm:p-6">
+        <div class="grid grid-cols-6 gap-6">
+            <div class="col-span-6 sm:col-span-3">
+                <label for="username" class="block text-sm font-medium text-gray-700 required">Raktas</label>
+                <input type="text" [formControl]="controls.key" id="username" placeholder="Raktas" autocomplete="given-name" class="mt-1 py-2 px-3 border focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+            </div>
+
+            <div class="col-span-6 sm:col-span-3">
+            </div>
+
+            <div class="col-span-6 sm:col-span-3">
+                <label for="url" class="block text-sm font-medium text-gray-700 required">Nuoroda</label>
+                <input type="text" [formControl]="controls.url" id="url" placeholder="http://www.pavyzdys.lt" autocomplete="family-name" class="mt-1 py-2 px-3 border focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+            </div>
+
+            <div class="col-span-6 flex flex-column justify-end sm:col-span-3">
+                <div class="flex items-start">
+                    <div class="flex items-center h-5">
+                      <input id="isPublic" [formControl]="controls.isPublic"  type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                    </div>
+                    <div class="ml-3 text-sm">
+                      <label for="isPublic" class="font-medium text-gray-700">Viešas</label>
+                    </div>
+                </div>
+                <div class="flex items-start mt-2">
+                    <div class="flex items-center h-5">
+                      <input id="takeFromStart" [formControl]="controls.takeFromStart" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                    </div>
+                    <div class="ml-3 text-sm">
+                      <label for="takeFromStart" class="font-medium text-gray-700">Atvaizduoti nuo sąrašo pradžios</label>
+                    </div>
+                </div>                
+            </div>
+
+            <div class="col-span-6 sm:col-span-3">
+                <label for="country" class="block text-sm font-medium text-gray-700 required">Metodas</label>
+                <select id="country" [formControl]="controls.method"  autocomplete="country-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                <option>GET</option>
+                <option>POST</option>
+                </select>
+            </div>
+
+            <div class="col-span-6 sm:col-span-3">
+                <label for="customAttribute" class="block text-sm font-medium text-gray-700">Kelias iki duomenų sąrašo</label>
+                <input type="text" [formControl]="controls.customAttribute"  id="customAttribute" placeholder="duomenys.sarasas"  class="mt-1 py-2 px-3 border focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+            </div>
+
+            <div class="col-span-6 sm:col-span-3">
+                <label for="customLabel" class="block text-sm font-medium text-gray-700">Etiketės atributas</label>
+                <input type="text" [formControl]="controls.customLabel"  id="customLabel" placeholder="Label"  class="mt-1 py-2 px-3 border focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+            </div>
+
+            <div class="col-span-6 sm:col-span-3">
+                <label for="customValue" class="block text-sm font-medium text-gray-700">Reikšmės atributas</label>
+                <input type="text" [formControl]="controls.customValue" id="customValue" placeholder="Value"  class="mt-1 py-2 px-3 border focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+            </div>
+
+            <div class="col-span-6 sm:col-span-3">
+                <label for="customMin" class="block text-sm font-medium text-gray-700">Minimali reikšmė</label>
+                <input type="number" [formControl]="controls.customMin" id="customMin" placeholder="0"  class="mt-1 py-2 px-3 border focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+            </div>
+
+            <div class="col-span-6 sm:col-span-3">
+                <label for="customMax" class="block text-sm font-medium text-gray-700">Maksimali reikšmė</label>
+                <input type="number" [formControl]="controls.customMax" id="customMax" placeholder="100"  class="mt-1 py-2 px-3 border focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+            </div>
+
+            <ng-container  *ngFor="let control of arrayControls; let i = index">
+                <div class="col-span-6 sm:col-span-3">
+                    <label for="{{i}}" class="block text-sm font-medium text-gray-700">Antraštė</label>
+                    <input type="text" [formControl]="getControls(control, 'key')" id="{{i}}" placeholder="Atributas"  class="mt-1 py-2 px-3 border focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                </div>
+                <div class="col-span-6 sm:col-span-3">
+                    <div class="d-flex flex-grow-1 justify-content-between">
+                        <div class="d-flex flex-column flex-grow-1">
+                            <label for="{{i}}" class="block text-sm font-medium text-gray-700">Antraštės reikšmė</label>
+                            <input type="text" [formControl]="getControls(control, 'value')" id="{{i}}" placeholder="Reikšmė"  class="mt-1 py-2 px-3 border focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                        </div>
+                        <div class="align-items-end d-flex ml-3">
+                            <button *ngIf="i  !== headersFormArray.controls.length - 1 && headersFormArray.controls.length > 0" type="button" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-indigo-200 disabled:hover:bg-indigo-200" (click)="popArrayItem(i)">
+                                Trinti
+                            </button>
+                            <button *ngIf="i  === headersFormArray.controls.length - 1" type="button" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-indigo-200 disabled:hover:bg-indigo-200" (click)="pushArrayItem()">
+                                Pridėti
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+    <div class="d-flex flex-column">
+        <div class="border-top border-gray-300 mt-2 mx-4"></div>
+        <div class="d-flex justify-content-end">
+            <div class="d-flex m-4 mt-2">
+                <button type="button" class=" mr-2 group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gray-400 hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300" (click)="cancel.emit(false)">Atšaukti</button>
+                <button [disabled]="form.invalid || form.pristine" type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-indigo-200 disabled:hover:bg-indigo-200">
+                    Išsaugoti
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

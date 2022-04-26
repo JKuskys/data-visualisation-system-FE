@@ -26,9 +26,9 @@ export class WidgetsEffects {
   updateWidget$ = createEffect(() =>
     this.actions$.pipe(
       ofType(WidgetActions.updateWidget),
-      withLatestFrom(this.store.pipe(select(getAccessToken))),
-      mergeMap(([{ widget }, token]) =>
-        this.updateWidget(this.cleanUpWidgetBody(widget), token)
+      withLatestFrom(this.store.pipe(select(getAccessToken)), this.store.pipe(select(getUserName))),
+      mergeMap(([{ widget }, token, author]) =>
+        this.updateWidget(this.cleanUpWidgetBody(widget), token, author)
       )
     )
   );
@@ -55,9 +55,9 @@ export class WidgetsEffects {
     private store: Store
   ) {}
 
-  private updateWidget(widget: IWidget, token: string): Observable<Action> {
+  private updateWidget(widget: IWidget, token: string, author: string): Observable<Action> {
     return this.http
-      .put<IWidget>(`${Api.default}/widgets/${widget.id}`, widget, {headers: {'Authorization': `Bearer ${token}`}})
+      .put<IWidget>(`${Api.default}/widgets/${widget.id}`, {...widget, author}, {headers: {'Authorization': `Bearer ${token}`}})
       .pipe(
         map(() => {
           this.toastr.success('Sekmingai atnaujintas duomenų valdiklis');

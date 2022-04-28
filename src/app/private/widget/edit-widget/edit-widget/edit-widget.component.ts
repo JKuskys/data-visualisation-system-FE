@@ -114,6 +114,20 @@ export class EditWidgetComponent implements OnInit, OnChanges, OnDestroy {
       customLabel: new FormControl(null),
       customMin: new FormControl(null),
       customMax: new FormControl(null),
+      widgetType: new FormControl('bar'),
+      customPrimaryColor: new FormControl(null),
+      customSecondaryColor: new FormControl(null),
+      customNegativePrimaryColor: new FormControl(null),
+      customNegativeSecondaryColor: new FormControl(null),
+      markNegativeDifferently: new FormControl(true),
+      showLabels: new FormControl(false),
+      showPeriods: new FormControl(true),
+      customLegend: new FormControl(null),
+      showYGrid: new FormControl(false),
+      showXGrid: new FormControl(false),
+      markFirst: new FormControl(false),
+      markLast: new FormControl(true),
+      title: new FormControl(null),
     };
 
     return new FormGroup(controls);

@@ -12,4 +12,18 @@ export interface IWidget {
   customMax?: number;
   author?: string;
   headers?: { [key: string]: string }[];
+  widgetType?: string,
+  customPrimaryColor?: string,
+  customSecondaryColor?: string,
+  customNegativePrimaryColor?: string,
+  customNegativeSecondaryColor?: string,
+  markNegativeDifferently?: boolean,
+  showLabels?: boolean,
+  showPeriods?: boolean,
+  customLegend?: string,
+  showYGrid?: boolean,
+  showXGrid?: boolean,
+  markFirst?: boolean,
+  markLast?: boolean,
+  title?: string,
 }

@@ -1,0 +1,298 @@
+<form class="d-flex flex-column justify-content-between overflow-hidden flex-grow-1" [formGroup]="form">
+    <div class="px-4 bg-white sm:p-6 overflow-auto">
+        <div>
+            <h2 class="accordion-header mb-0" id="headingOne">
+            <button class="
+                accordion-button
+                px-0
+                pt-0 
+                pb-2
+                relative
+                flex
+                items-center
+                w-full
+                text-base text-gray-800 text-left
+                bg-white
+                border-0
+                rounded-none
+                transition
+                font-bold
+                focus:outline-none
+                focus:shadow-none
+            " type="button" [class.collapsed]="expandedAccordion !== ExpandedAccordion.Data" (click)="toggleAccordion(ExpandedAccordion.Data)">
+                Duomenų konfiguracija
+            </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse" [class.show]="expandedAccordion === ExpandedAccordion.Data" aria-labelledby="headingOne">
+            <div class="accordion-body px-0">
+                <div class="grid grid-cols-6 gap-6">
+                    <div class="col-span-6 sm:col-span-3">
+                        <label for="username" class="block text-sm font-medium text-gray-700 required">Raktas</label>
+                        <input type="text" [formControl]="controls.key" id="username" placeholder="Raktas" autocomplete="given-name" class="mt-1 py-2 px-3 border focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                    </div>
+        
+                    <div class="col-span-6 sm:col-span-3">
+                    </div>
+        
+                    <div class="col-span-6 sm:col-span-3">
+                        <label for="url" class="block text-sm font-medium text-gray-700 required">Nuoroda</label>
+                        <input type="text" [formControl]="controls.url" id="url" placeholder="http://www.pavyzdys.lt" autocomplete="family-name" class="mt-1 py-2 px-3 border focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                    </div>
+        
+                    <div class="col-span-6 flex flex-column justify-end sm:col-span-3">
+                        <div class="flex items-start">
+                            <div class="flex items-center h-5 mb-2">
+                              <input id="isPublic" [formControl]="controls.isPublic"  type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                            </div>
+                            <div class="ml-3 text-sm">
+                              <label for="isPublic" class="font-medium text-gray-700">Viešas</label>
+                            </div>
+                        </div>       
+                    </div>
+        
+                    <div class="col-span-6 sm:col-span-3">
+                        <label for="country" class="block text-sm font-medium text-gray-700 required">Metodas</label>
+                        <select id="country" [formControl]="controls.method"  autocomplete="country-name" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        <option>GET</option>
+                        <option>POST</option>
+                        </select>
+                    </div>
+        
+                    <div class="col-span-6 sm:col-span-3">
+                        <label for="customAttribute" class="block text-sm font-medium text-gray-700">Kelias iki duomenų sąrašo</label>
+                        <input type="text" [formControl]="controls.customAttribute"  id="customAttribute" placeholder="duomenys.sarasas"  class="mt-1 py-2 px-3 border focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                    </div>
+        
+                    <div class="col-span-6 sm:col-span-3">
+                        <label for="customLabel" class="block text-sm font-medium text-gray-700">Etiketės atributas</label>
+                        <input type="text" [formControl]="controls.customLabel"  id="customLabel" placeholder="Label"  class="mt-1 py-2 px-3 border focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                    </div>
+        
+                    <div class="col-span-6 sm:col-span-3">
+                        <label for="customValue" class="block text-sm font-medium text-gray-700">Reikšmės atributas</label>
+                        <input type="text" [formControl]="controls.customValue" id="customValue" placeholder="Value"  class="mt-1 py-2 px-3 border focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                    </div>           
+        
+                    <ng-container  *ngFor="let control of arrayControls; let i = index">
+                        <div class="col-span-6 sm:col-span-3">
+                            <label for="{{i}}" class="block text-sm font-medium text-gray-700">Antraštė</label>
+                            <input type="text" [formControl]="getControls(control, 'key')" id="{{i}}" placeholder="Atributas"  class="mt-1 py-2 px-3 border focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                        </div>
+                        <div class="col-span-6 sm:col-span-3">
+                            <label for="{{i}}" class="block text-sm font-medium text-gray-700">Antraštės reikšmė</label>
+                            <input type="text" [formControl]="getControls(control, 'value')" id="{{i}}" placeholder="Reikšmė"  class="mt-1 py-2 px-3 border focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                        </div>
+                    </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="border-top border-gray-300"></div>
+
+        <div>
+            <h2 class="accordion-header mb-0" id="headingOne">
+            <button class="
+                accordion-button
+                px-0
+                relative
+                flex
+                items-center
+                w-full
+                text-base text-gray-800 text-left
+                bg-white
+                border-0
+                rounded-none
+                transition
+                font-bold
+                focus:outline-none
+                focus:shadow-none
+                pt-2
+                pb-2
+            " type="button" [class.collapsed]="expandedAccordion !== ExpandedAccordion.WidgetConfig" (click)="toggleAccordion(ExpandedAccordion.WidgetConfig)">
+                Valdiklio konfiguracija
+            </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse" [class.show]="expandedAccordion === ExpandedAccordion.WidgetConfig" aria-labelledby="headingOne">
+                <div class="accordion-body px-0">
+                    <div class="grid grid-cols-6 gap-6">
+                        <div class="col-span-6 sm:col-span-3">
+                            <label for="widget-type" class="block text-sm font-medium text-gray-700">Valdiklio tipas</label>
+                            <select id="widget-type" [formControl]="controls.widgetType"  autocomplete="widget-type" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                            <option>bar</option>
+                            <option>line</option>
+                            <option>pie</option>
+                            <option>polarArea</option>
+                            </select>
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-3">
+                            <label for="title" class="block text-sm font-medium text-gray-700">Pavadinimas</label>
+                            <input type="text" [formControl]="controls.title" id="title" placeholder="Pavadinimas"  class="mt-1 py-2 px-3 border focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-3">
+                            <label for="customPrimaryColor" class="block text-sm font-medium text-gray-700">Pirminė spalva</label>
+                            <input type="text" [formControl]="controls.customPrimaryColor" id="customPrimaryColor" placeholder="#7fa2c9"  class="mt-1 py-2 px-3 border focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-3">
+                            <label for="customSecondaryColor" class="block text-sm font-medium text-gray-700">Antrinė spalva</label>
+                            <input type="text" [formControl]="controls.customSecondaryColor" id="customSecondaryColor" placeholder="#3b8be3"  class="mt-1 py-2 px-3 border focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-3">
+                            <label for="customNegativePrimaryColor" class="block text-sm font-medium text-gray-700">Pirminė neigiama spalva</label>
+                            <input type="text" [formControl]="controls.customNegativePrimaryColor" id="customNegativePrimaryColor" placeholder="#ed625c"  class="mt-1 py-2 px-3 border focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-3">
+                            <label for="customNegativeSecondaryColor" class="block text-sm font-medium text-gray-700">Antrinė neigiama spalva</label>
+                            <input type="text" [formControl]="controls.customNegativeSecondaryColor" id="customNegativeSecondaryColor" placeholder="#eb3a2f"  class="mt-1 py-2 px-3 border focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-3">
+                            <label for="customMin" class="block text-sm font-medium text-gray-700">Minimali reikšmė</label>
+                            <input type="number" [formControl]="controls.customMin" id="customMin" placeholder="0"  class="mt-1 py-2 px-3 border focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-3">
+                            <label for="customMax" class="block text-sm font-medium text-gray-700">Maksimali reikšmė</label>
+                            <input type="number" [formControl]="controls.customMax" id="customMax" placeholder="100"  class="mt-1 py-2 px-3 border focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-3">
+                            <label for="customLegend" class="block text-sm font-medium text-gray-700">Legenda</label>
+                            <input type="text" [formControl]="controls.customLegend" id="customLegend" placeholder="Legenda"  class="mt-1 py-2 px-3 border focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                        </div>
+
+                        <div class="col-span-6 sm:col-span-3">
+                            <label for="maxItems" class="block text-sm font-medium text-gray-700">Maksimalus elementų kiekis</label>
+                            <input type="number" [formControl]="controls.maxItems" id="maxItems" placeholder="Legenda"  class="mt-1 py-2 px-3 border focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
+                        </div>
+
+                        
+
+                        <div class="col-span-6 flex flex-column justify-end sm:col-span-3">
+                            <div class="flex items-start">
+                                <div class="flex items-center h-5">
+                                <input id="showLabels" [formControl]="controls.showLabels" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                                </div>
+                                <div class="ml-3 text-sm">
+                                <label for="showLabels" class="font-medium text-gray-700">Rodyti etiketes</label>
+                                </div>
+                            </div>                
+                        </div>
+
+                        <div class="col-span-6 flex flex-column justify-end sm:col-span-3">
+                            <div class="flex items-start">
+                                <div class="flex items-center h-5">
+                                <input id="showXGrid" [formControl]="controls.showXGrid" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                                </div>
+                                <div class="ml-3 text-sm">
+                                <label for="showXGrid" class="font-medium text-gray-700">Rodyti x ašį</label>
+                                </div>
+                            </div>                
+                        </div>
+
+                        <div class="col-span-6 flex flex-column justify-end sm:col-span-3">
+                            <div class="flex items-start">
+                                <div class="flex items-center h-5">
+                                <input id="showPeriods" [formControl]="controls.showPeriods" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                                </div>
+                                <div class="ml-3 text-sm">
+                                <label for="showPeriods" class="font-medium text-gray-700">Rodyti periodus</label>
+                                </div>
+                            </div>                
+                        </div>
+
+                        <div class="col-span-6 flex flex-column justify-end sm:col-span-3">
+                            <div class="flex items-start">
+                                <div class="flex items-center h-5">
+                                <input id="showYGrid" [formControl]="controls.showYGrid" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                                </div>
+                                <div class="ml-3 text-sm">
+                                <label for="showYGrid" class="font-medium text-gray-700">Rodyti y ašį</label>
+                                </div>
+                            </div>                
+                        </div>
+
+                        <div class="col-span-6 flex flex-column justify-end sm:col-span-3">
+                            <div class="flex items-start">
+                                <div class="flex items-center h-5">
+                                <input id="markFirst" [formControl]="controls.markFirst" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                                </div>
+                                <div class="ml-3 text-sm">
+                                <label for="markFirst" class="font-medium text-gray-700">Pažymėti pirmą</label>
+                                </div>
+                            </div>                
+                        </div>
+
+                        <div class="col-span-6 flex flex-column justify-end sm:col-span-3">
+                            <div class="flex items-start">
+                                <div class="flex items-center h-5">
+                                <input id="markLast" [formControl]="controls.markLast" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                                </div>
+                                <div class="ml-3 text-sm">
+                                <label for="markLast" class="font-medium text-gray-700">Pažymėti paskutinį</label>
+                                </div>
+                            </div>                
+                        </div>
+
+                        <div class="col-span-6 flex flex-column justify-end sm:col-span-3">
+                            <div class="flex items-start">
+                                <div class="flex items-center h-5">
+                                <input id="takeFromStart" [formControl]="controls.takeFromStart" type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                                </div>
+                                <div class="ml-3 text-sm">
+                                <label for="takeFromStart" class="font-medium text-gray-700">Atvaizduoti nuo sąrašo pradžios</label>
+                                </div>
+                            </div>                
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ng-container *ngIf="widget">
+            <div class="border-top border-gray-300"></div>
+            <div>
+                <h2 class="accordion-header mb-0 px-0
+                relative
+                flex
+                items-center
+                w-full
+                text-base text-gray-800 text-left
+                bg-white
+                border-0
+                rounded-none
+                transition
+                font-bold
+                focus:outline-none
+                focus:shadow-none
+                pt-2
+                pb-2" id="headingOne">
+                    Valdiklio išankstinė peržiūra
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse show">
+                    <div class="accordion-body px-0 d-flex">
+                        <dvs-wrapper-component [widgetKey]="widget?.key"></dvs-wrapper-component>
+                        <div class="ml-6">
+                            <strong class="d-block mb-3 mt-2">Kaip atvaizduoti duomenų valdiklį mano projekte?</strong>
+                            <a href="https://www.npmjs.com/package/data-visualisation-system-stencil" class="no-underline hover:underline text-indigo-600 hover:text-indigo-700">Nuoroda į instrukcija ir dokumentaciją</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+
+        
+    <div class="d-flex flex-column">
+        <div class="border-top border-gray-300 mt-2 mx-4"></div>
+        <div class="d-flex justify-content-end">
+            <div class="d-flex m-4">
+                <button type="button" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gray-400 hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300" (click)="back.emit()">Grižti</button>
+            </div>
+        </div>
+    </div>
+</form>

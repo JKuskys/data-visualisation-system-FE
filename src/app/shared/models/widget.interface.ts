@@ -26,4 +26,5 @@ export interface IWidget {
   markFirst?: boolean,
   markLast?: boolean,
   title?: string,
+  maxItems?: number
 }

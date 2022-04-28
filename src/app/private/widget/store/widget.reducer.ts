@@ -1,5 +1,5 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { IWidget } from '../models';
+import { IWidget } from 'src/app/shared/models';
 
 import * as WidgetActions from './widget.actions';
 

@@ -1,27 +1,32 @@
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';
 import {
-  AbstractControl,
-  FormArray,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { IWidget } from '../../models';
-import * as WidgetActions from '../../store/widget.actions';
+import * as WidgetActions from '../store/widget.actions';
+import { ExpandedAccordion } from '../../../shared/models/expanded-accordion.enum';
+import { IWidget } from 'src/app/shared/models';
 
 @Component({
-  selector: 'app-edit-widget',
-  templateUrl: './edit-widget.component.html',
-  styleUrls: ['./edit-widget.component.scss'],
+  selector: 'app-public-widget-view',
+  templateUrl: './public-widget-view.component.html',
+  styleUrls: ['./public-widget-view.component.scss'],
 })
-export class EditWidgetComponent implements OnInit, OnChanges, OnDestroy {
+export class PublicWidgetViewComponent implements OnInit, OnChanges, OnDestroy {
   @Input() widget: IWidget | null = null;
-  @Output() cancel = new EventEmitter<boolean>();
-  @Output() update = new EventEmitter<IWidget>();
+  @Output() back = new EventEmitter<void>();
 
   form: FormGroup = this.generateEditForm();
   headersFormArray: FormArray = new FormArray([]);
+  expandedAccordion: ExpandedAccordion | null = null;
+
+  readonly ExpandedAccordion = ExpandedAccordion;
 
   get controls() {
     return this.form.controls as Record<
@@ -37,32 +42,24 @@ export class EditWidgetComponent implements OnInit, OnChanges, OnDestroy {
   constructor(private store: Store) {}
 
   ngOnInit(): void {
-    this.pushArrayItem();    
+    this.pushArrayItem();
   }
-  
+
   ngOnChanges(): void {
-    if(this.widget) {
+    if (this.widget) {
       this.form.patchValue(this.widget);
+      this.form.disable()
+      this.headersFormArray.disable()
       this.form.markAsPristine();
     }
   }
 
   ngOnDestroy() {
-    this.store.dispatch(WidgetActions.resetWidget())    
+    this.store.dispatch(WidgetActions.resetWidget());
   }
-
 
   getControls(arrayControl: FormGroup, attribute: string): FormControl {
     return arrayControl.get(attribute) as FormControl;
-  }
-
-  onSubmit(): void {
-    const widgetData: IWidget = {
-      ...this.form.getRawValue(),
-      headers: this.getMappedHeaders(),
-    };
-
-    this.update.emit(widgetData);
   }
 
   pushArrayItem(): void {
@@ -73,22 +70,8 @@ export class EditWidgetComponent implements OnInit, OnChanges, OnDestroy {
     this.headersFormArray.removeAt(index);
   }
 
-  private getMappedHeaders(): { [key: string]: string }[] {
-    let mappedHeaders: { [key: string]: string }[] = [];
-    this.headersFormArray.controls
-      .filter(
-        (control) =>
-          !!this.getControls(control as FormGroup, 'key').value &&
-          !!this.getControls(control as FormGroup, 'value').value
-      )
-      .forEach((control) => {
-        mappedHeaders.push({
-          [this.getControls(control as FormGroup, 'key').value]:
-            this.getControls(control as FormGroup, 'value').value,
-        });
-      });
-
-    return mappedHeaders;
+  toggleAccordion(type: ExpandedAccordion) {
+    this.expandedAccordion = this.expandedAccordion === type ? null : type;
   }
 
   private getHeaderArrayItem(): FormGroup {
@@ -128,6 +111,7 @@ export class EditWidgetComponent implements OnInit, OnChanges, OnDestroy {
       markFirst: new FormControl(false),
       markLast: new FormControl(true),
       title: new FormControl(null),
+      maxItems: new FormControl(null),
     };
 
     return new FormGroup(controls);

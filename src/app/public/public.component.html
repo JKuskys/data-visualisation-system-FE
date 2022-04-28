@@ -1,1 +1,10 @@
-<p>public works!</p>
+<div class="bg-white d-flex flex-column flex-grow-1 shadow sm:rounded-lg overflow-hidden">
+    <div class="d-flex justify-content-between flex-wrap max-w-7xl mx-auto pb-3 py-6 px-4 sm:px-6 lg:px-8 w-100">
+      <h1 class="text-3xl font-bold text-gray-900">{{isViewing? widgetKey +' duomenų valdiklis' : 'Duomenų valdikliai' }}</h1>
+    </div>
+    <div class="border-top border-gray-300 mt-2 mx-4 mb-2"></div>
+    <app-public-widget-view *ngIf="isViewing; else widgetDashboard" [widget]="selectedWidget$ | async" (back)="toggleIsViewing(false)" class="d-flex flex-column flex-grow-1 overflow-hidden"></app-public-widget-view>
+</div>
+<ng-template #widgetDashboard>
+    <app-public-widget-dashboard [widgetKeys]="widgetKeys$ | async" class="d-flex flex-column flex-grow-1 overflow-hidden" (onView)="toggleIsViewing(true, $event)"></app-public-widget-dashboard>
+</ng-template>

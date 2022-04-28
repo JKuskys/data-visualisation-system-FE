@@ -5,11 +5,11 @@ import { Action, select, Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 import { Api } from 'src/app/shared/models/api.enum';
-import { IWidget } from '../models';
 import { ToastrService } from 'ngx-toastr';
 
 import * as WidgetActions from './widget.actions';
 import { getAccessToken, getUserName } from '../../authentication/store/authentication.selector';
+import { IWidget } from 'src/app/shared/models';
 
 @Injectable()
 export class WidgetsEffects {

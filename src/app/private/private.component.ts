@@ -5,8 +5,8 @@ import * as fromAuthentication from './authentication/store/authentication.selec
 import * as AuthenticationActions from './authentication/store/authentication.actions';
 import * as WidgetActions from './widget/store/widget.actions';
 import * as fromWidgets from './widget/store/widget.selector';
-import { IWidget } from './widget/models';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { IWidget } from '../shared/models';
 
 @UntilDestroy()
 @Component({

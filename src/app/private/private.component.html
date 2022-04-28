@@ -1,6 +1,6 @@
 <ng-container *ngIf="isLoggedIn$ | async; else notLoggedInRef">
-  <header class="bg-white shadow sm:rounded-lg mb-4">
-    <div class="d-flex justify-content-between flex-wrap max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+  <div class="bg-white d-flex flex-column flex-grow-1 shadow sm:rounded-lg overflow-hidden">
+    <div class="d-flex justify-content-between flex-wrap max-w-7xl mx-auto pb-3 py-6 px-4 sm:px-6 lg:px-8 w-100">
       <h1 class="text-3xl font-bold text-gray-900">{{isEditing? !widgetKey? 'Naujas duomenų valdiklis' : widgetKey +' duomenų valdiklis' : 'Duomenų valdikliai' }}</h1>
       <div *ngIf="!isEditing" class="ml-3">
         <button type="button" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-indigo-200 disabled:hover:bg-indigo-200" (click)="toggleEditing(true)">
@@ -8,10 +8,11 @@
           </button>
       </div>
     </div>
-  </header>
-  <app-edit-widget *ngIf="isEditing; else widgetDashboard" class="bg-white d-flex flex-column flex-grow-1 overflow-auto shadow sm:rounded-lg" [widget]="selectedWidget$ | async" (cancel)="toggleEditing($event)" (update)="updateWidget($event)"></app-edit-widget>
+    <div class="border-top border-gray-300 mt-2 mx-4 mb-2"></div>
+    <app-edit-widget *ngIf="isEditing; else widgetDashboard" [widget]="selectedWidget$ | async" (cancel)="toggleEditing($event)" (update)="updateWidget($event)" class="d-flex flex-column flex-grow-1 overflow-hidden"></app-edit-widget>
+  </div>
   <ng-template #widgetDashboard>
-    <app-widget-dashboard [widgetKeys]="widgetKeys$ | async"class="bg-white d-flex flex-column flex-grow-1 overflow-auto shadow sm:rounded-lg" (logOut)="logOut()" (startEdit)="toggleEditing(true, $event)"></app-widget-dashboard>
+    <app-widget-dashboard [widgetKeys]="widgetKeys$ | async" class="d-flex flex-column flex-grow-1 overflow-hidden" (logOut)="logOut()" (startEdit)="toggleEditing(true, $event)"></app-widget-dashboard>
   </ng-template>
 </ng-container>
 

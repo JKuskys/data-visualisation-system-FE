@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { IWidget } from '../models';
+import { IWidget } from 'src/app/shared/models';
 
 export const resetWidget = createAction(
   '[Private widget] Reset Widget'

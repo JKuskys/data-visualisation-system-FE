@@ -26,6 +26,7 @@ export class EditWidgetComponent implements OnInit, OnChanges, OnDestroy {
   @Input() widget: IWidget | null = null;
   @Output() cancel = new EventEmitter<boolean>();
   @Output() update = new EventEmitter<IWidget>();
+  @Output() onDelete = new EventEmitter<number>();
 
   form: FormGroup = this.generateEditForm();
   headersFormArray: FormArray = new FormArray([]);
@@ -51,6 +52,7 @@ export class EditWidgetComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges(): void {
+    this.form = this.generateEditForm();
     if (this.widget) {
       this.form.patchValue(this.widget);
       this.form.markAsPristine();

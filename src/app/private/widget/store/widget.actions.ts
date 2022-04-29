@@ -1,9 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { IWidget } from 'src/app/shared/models';
 
-export const resetWidget = createAction(
-  '[Private widget] Reset Widget'
-);
+export const resetWidget = createAction('[Private widget] Reset Widget');
 
 export const createWidget = createAction(
   '[Private widget] Create Widget',
@@ -15,7 +13,9 @@ export const createWidgetSuccess = createAction(
   props<{ widget: IWidget }>()
 );
 
-export const createWidgetError = createAction('[Private widget] Create widget error');
+export const createWidgetError = createAction(
+  '[Private widget] Create widget error'
+);
 
 export const updateWidget = createAction(
   '[Private widget] Update Widget',
@@ -27,7 +27,9 @@ export const updateWidgetSuccess = createAction(
   props<{ widget: IWidget }>()
 );
 
-export const updateWidgetError = createAction('[Private widget] Update widget error');
+export const updateWidgetError = createAction(
+  '[Private widget] Update widget error'
+);
 
 export const loadWidget = createAction(
   '[Private widget] Load Widget',
@@ -39,9 +41,26 @@ export const loadWidgetSuccess = createAction(
   props<{ widget: IWidget }>()
 );
 
-export const loadWidgetError = createAction('[Private widget] Load widget error');
+export const loadWidgetError = createAction(
+  '[Private widget] Load widget error'
+);
 
-export const loadPrivateWidgets = createAction('[Private widget] Load private widgets');
+export const deleteWidget = createAction(
+  '[Private widget] Delete Widget',
+  props<{ id: number }>()
+);
+
+export const deleteWidgetSuccess = createAction(
+  '[Private widget] Delete widget success'
+);
+
+export const deleteWidgetError = createAction(
+  '[Private widget] Delete widget error'
+);
+
+export const loadPrivateWidgets = createAction(
+  '[Private widget] Load private widgets'
+);
 
 export const loadPrivateWidgetsSuccess = createAction(
   '[Private widget] Load private widgets success',

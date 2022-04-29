@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="border-top border-gray-300 mt-2 mx-4 mb-2"></div>
-    <app-edit-widget *ngIf="isEditing; else widgetDashboard" [widget]="selectedWidget$ | async" (cancel)="toggleEditing($event)" (update)="updateWidget($event)" class="d-flex flex-column flex-grow-1 overflow-hidden"></app-edit-widget>
+    <app-edit-widget *ngIf="isEditing; else widgetDashboard" [widget]="selectedWidget$ | async" (cancel)="toggleEditing($event)" (update)="updateWidget($event)" (onDelete)="onDelete($event)" class="d-flex flex-column flex-grow-1 overflow-hidden"></app-edit-widget>
   </div>
   <ng-template #widgetDashboard>
     <app-widget-dashboard [widgetKeys]="widgetKeys$ | async" class="d-flex flex-column flex-grow-1 overflow-hidden" (logOut)="logOut()" (startEdit)="toggleEditing(true, $event)"></app-widget-dashboard>

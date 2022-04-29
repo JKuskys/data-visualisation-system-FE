@@ -17,10 +17,7 @@ export const initialState: State = {
 
 const widgetsReducer = createReducer(
   initialState,
-  on(WidgetActions.resetWidget, (state) => ({
-    ...state,
-    widget: null,
-  })),  
+  on(WidgetActions.resetWidget, WidgetActions.deleteWidgetSuccess, (state) => (initialState)),  
   on(WidgetActions.createWidget, (state) => ({
     ...state,
     isLoading: true,

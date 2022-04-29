@@ -43,6 +43,10 @@ export class PrivateComponent implements OnInit {
     this.store.dispatch(AuthenticationActions.logOut());
   }
 
+  onDelete(id: number): void {
+    this.store.dispatch(WidgetActions.deleteWidget({id}));
+  }
+
   updateWidget(widget: IWidget): void {
     if (this.widgetKey) {
       this.store.dispatch(WidgetActions.updateWidget({ widget }));

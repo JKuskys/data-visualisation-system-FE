@@ -32,6 +32,9 @@
                     </div>
         
                     <div class="col-span-6 sm:col-span-3">
+                        <div class="align-items-end d-flex h-100" *ngIf="widget?.id">
+                            <button type="button" class=" mr-2 group relative flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300" (click)="onDelete.emit(widget?.id)">Trinti</button>
+                        </div>
                     </div>
         
                     <div class="col-span-6 sm:col-span-3">

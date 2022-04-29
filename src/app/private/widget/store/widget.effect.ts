@@ -8,7 +8,10 @@ import { Api } from 'src/app/shared/models/api.enum';
 import { ToastrService } from 'ngx-toastr';
 
 import * as WidgetActions from './widget.actions';
-import { getAccessToken, getUserName } from '../../authentication/store/authentication.selector';
+import {
+  getAccessToken,
+  getUserName,
+} from '../../authentication/store/authentication.selector';
 import { IWidget } from 'src/app/shared/models';
 
 @Injectable()
@@ -26,7 +29,10 @@ export class WidgetsEffects {
   updateWidget$ = createEffect(() =>
     this.actions$.pipe(
       ofType(WidgetActions.updateWidget),
-      withLatestFrom(this.store.pipe(select(getAccessToken)), this.store.pipe(select(getUserName))),
+      withLatestFrom(
+        this.store.pipe(select(getAccessToken)),
+        this.store.pipe(select(getUserName))
+      ),
       mergeMap(([{ widget }, token, author]) =>
         this.updateWidget(this.cleanUpWidgetBody(widget), token, author)
       )
@@ -37,6 +43,14 @@ export class WidgetsEffects {
     this.actions$.pipe(
       ofType(WidgetActions.loadWidget),
       mergeMap(({ key }) => this.loadPrivateWidget(key))
+    )
+  );
+
+  deleteWidget$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(WidgetActions.deleteWidget),
+      withLatestFrom(this.store.pipe(select(getAccessToken))),
+      mergeMap(([{ id }, token]) => this.deleteWidget(id, token))
     )
   );
 
@@ -55,9 +69,17 @@ export class WidgetsEffects {
     private store: Store
   ) {}
 
-  private updateWidget(widget: IWidget, token: string, author: string): Observable<Action> {
+  private updateWidget(
+    widget: IWidget,
+    token: string,
+    author: string
+  ): Observable<Action> {
     return this.http
-      .put<IWidget>(`${Api.default}/widgets/${widget.id}`, {...widget, author}, {headers: {'Authorization': `Bearer ${token}`}})
+      .put<IWidget>(
+        `${Api.default}/widgets/${widget.id}`,
+        { ...widget, author },
+        { headers: { Authorization: `Bearer ${token}` } }
+      )
       .pipe(
         map(() => {
           this.toastr.success('Sekmingai atnaujintas duomenų valdiklis');
@@ -68,6 +90,23 @@ export class WidgetsEffects {
         catchError(() => {
           this.toastr.error('Nepavyko atnaujinti duomenų valdiklio');
           return of(WidgetActions.updateWidgetError());
+        })
+      );
+  }
+
+  private deleteWidget(id: number, token: string): Observable<Action> {
+    return this.http
+      .delete<IWidget>(`${Api.default}/widgets/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .pipe(
+        map(() => {
+          this.toastr.success('Valdiklis ištrintas');
+          return WidgetActions.deleteWidgetSuccess();
+        }),
+        catchError(() => {
+          this.toastr.error('Nepavyko ištrinti valdiklio');
+          return of(WidgetActions.deleteWidgetError());
         })
       );
   }
